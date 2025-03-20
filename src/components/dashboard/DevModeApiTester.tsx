@@ -123,9 +123,28 @@ export function DevModeApiTester() {
   };
   
   const handleCustomRequest = async () => {
-    // Implementation for custom requests
+    // Beispiel-Implementierung für benutzerdefinierte Anfragen
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    try {
+      // Beispiel für einen benutzerdefinierten API-Aufruf
+      const result = await supabase.from('custom_table').select('*');
+
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+
+      setResponse(result.data);
+    } catch (err) {
+      console.error('Custom request error:', err);
+      setError(err.message || 'An unexpected error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
   return (
     <Card className="border-2 border-blue-300 shadow-md">
       <CardHeader className="bg-blue-50">
